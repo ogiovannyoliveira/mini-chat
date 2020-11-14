@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Mini chat secret</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link href="https://unpkg.com/vue-simple-notify/dist/vue-simple-notify.min.css">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="https://unpkg.com/vue-simple-notify/dist/vue-simple-notify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+  <main id="root">
+    <section class="alerts">
+      <alerts-component :items="alerts"></alerts-component>
+    </section>
+
+    <section class="chat">
+      <h1>Mini chat secret</h1>
+
+      <form>
+        <input v-model="message" type="text" placeholder="Type your message...">
+        <button type="submit" @click.prevent="sendChatMessage">Enviar</button>
+      </form>
+
+      <p>
+      <ul>
+        <li v-if="!messages.length">No messages...</li>
+        <li v-else v-for="msg in messages"><strong>{{ msg.sender }} says: </strong> {{ msg.message }}</li>
+      </ul>
+      </p>
+    </section>
+  </main>
+
+  <script>
+    Vue.component('alerts-component', VueSimpleNotify.VueSimpleNotify)
+    var vm = new Vue({
+      el: '#root',
+      data: () => ({
+        username: '',
+        message: '',
+        messages: [],
+        alerts: [],
+        socket: { chat: null, alerts: null },
+      }),
+      methods: {
+        sendChatMessage() {
+          if (!this.message) return
+
+          console.log('sent message: ', this.message);
+          // this.messages.push(this.message)
+          this.socket.chat.emit('chatToServer', { sender: this.username, message: this.message })
+          this.message = ''
+        },
+        receiveChatMessage(message) {
+          console.log('received chat message: ', message);
+          this.messages.push(message)
+        },
+        receiveAlertMessage(message) {
+          console.log('received alert: ', message);
+          this.alerts.push(message)
+        },
+      },
+      created() {
+        this.username = prompt('Inform your name').toUpperCase()
+
+        this.socket.chat = io('http://localhost:3000/chat')
+        this.socket.chat.on('chatToClient', payload => {
+          this.receiveChatMessage(payload)
+        })
+
+        this.socket.alerts = io('http://localhost:3000/alert')
+        this.socket.alerts.on('alertToClient', payload => {
+          this.receiveAlertMessage(payload)
+        })
+      }
+    })
+  </script>
+</body>
+
+</html>
