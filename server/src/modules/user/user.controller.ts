@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { DefaultAuthGuard } from 'src/shared/guards';
 
@@ -8,9 +8,15 @@ export class UserController {
     private userService: UserService
   ) {}
 
-  @Get(':id')
+  @Get(':nicknameOrID')
   @UseGuards(DefaultAuthGuard)
-  async indexUser(@Param() { id }: any) {
-    return await this.userService.index(id)
+  async indexUser(@Param() { nicknameOrID }: any) {
+    const user = await this.userService.indexByNicknameOrID(nicknameOrID)
+
+    if (!user) {
+      throw new BadRequestException('User not found!')
+    }
+
+    return user
   }
 }
