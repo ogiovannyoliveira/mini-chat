@@ -1,4 +1,4 @@
-import { 
+import {
   BadRequestException,
   InternalServerErrorException,
   ConflictException,
@@ -18,10 +18,10 @@ export class AuthController {
     private userService: UserService,
     private jwtService: JwtService
   ) {}
-  
+
   @Post('signup')
   async signUp(@Body() user: CreateUserDto): Promise<Token> {
-    const nicknameExists = await this.userService.indexByNickname(user.nickname)
+    const nicknameExists = await this.userService.indexByNicknameOrID(user.nickname)
 
     if (nicknameExists) {
       throw new ConflictException('Nickname already exists! Please, choose another...')
@@ -38,7 +38,7 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() user: LoginUserDto): Promise<Token> {
-    const userByNickname = await this.userService.indexByNickname(user.nickname)
+    const userByNickname = await this.userService.indexByNicknameOrID(user.nickname)
 
     if (!userByNickname) {
       throw new BadRequestException('User not exists!')

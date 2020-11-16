@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/shared/entities';
+import { User } from '../../shared/entities';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from 'src/shared/dtos';
-import { isUuid } from 'src/shared/functions';
+import { CreateUserDto } from  '../../shared/dtos';
+import { isUuid } from '../../shared/functions';
 
 @Injectable()
 export class UserService {
@@ -19,9 +19,9 @@ export class UserService {
     return await this.repo.findOne(id)
   }
 
-  async indexByNickname(nickname: string): Promise<User> {
-    return await this.repo.findOne({ where: { nickname } })
-  }
+  // async indexByNickname(nickname: string): Promise<User> {
+  //   return await this.repo.findOne({ where: { nickname } })
+  // }
 
   async indexByNicknameOrID(nicknameOrID: string): Promise<User> {
     let nickname = nicknameOrID
@@ -37,6 +37,6 @@ export class UserService {
       END
     `
 
-    return await this.repo.findOne({ where: caseNicknameOrID})
+    return await this.repo.findOne({ where: caseNicknameOrID })
   }
 }
