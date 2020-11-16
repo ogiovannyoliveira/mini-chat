@@ -6,7 +6,7 @@ import { Logger } from '@nestjs/common';
 export class AlertGateway  implements OnGatewayInit {
   @WebSocketServer() wss: Server
 
-  private logger: Logger = new Logger('ChatGateway')
+  private logger: Logger = new Logger('AlertGateway')
 
   afterInit(server: any) {
     this.logger.log('Gateway initialized!')
