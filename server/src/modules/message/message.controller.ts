@@ -1,8 +1,8 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { CurrentUser } from 'src/shared/decorators';
-import { CreateMessageDto } from 'src/shared/dtos';
-import { Message, User } from 'src/shared/entities';
-import { DefaultAuthGuard } from 'src/shared/guards';
+import { CurrentUser } from '../../shared/decorators';
+import { CreateMessageDto } from '../../shared/dtos';
+import { Message, User } from '../../shared/entities';
+import { DefaultAuthGuard } from '../../shared/guards';
 import { MessageService } from './message.service';
 
 @Controller('message')
