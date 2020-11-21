@@ -17,17 +17,17 @@
 <br>
 
 #### Requisitos funcionais:
-[] O usuário deverá fazer sua conta informando um nickname e uma senha
-[] O usuário deverá realizar o login na sua conta informando os mesmos dados
-[] O usuário **logado** poderá pesquisar quaisquer outros usuários pelo nickname
-[] O usuário **logado** poderá visualizar os grupos e conversas em que é participante
-[] O usuário **logado** poderá mandar mensagens para qualquer outro, a partir do nickname
-[] O usuário **logado** poderá criar grupos e inserir outros usuários a partir do nickname
-[] O usuário **logado** poderá enviar e _apagar_ mensagens (para si ou para todos) de grupos e conversas nos quais pertence
-[] O usuário **logado** poderá sair dos grupos e _apagar_ conversas no qual está inserido
+- [] O usuário deverá fazer sua conta informando um nickname e uma senha
+- [] O usuário deverá realizar o login na sua conta informando os mesmos dados
+- [] O usuário **logado** poderá pesquisar quaisquer outros usuários pelo nickname
+- [] O usuário **logado** poderá visualizar os grupos e conversas em que é participante
+- [] O usuário **logado** poderá mandar mensagens para qualquer outro, a partir do nickname
+- [] O usuário **logado** poderá criar grupos e inserir outros usuários a partir do nickname
+- [] O usuário **logado** poderá enviar e _apagar_ mensagens (para si ou para todos) de grupos e conversas nos quais pertence
+- [] O usuário **logado** poderá sair dos grupos e _apagar_ conversas no qual está inserido
 
 
 #### Requisitos não funcionais:
-[] Um grupo deverá ter no mínimo um membro
-[] Se todos os membros de um grupo saírem, o grupo e suas mensagens serão apagadas
-[] Se os participantes de uma conversa excluírem-a, a conversa e suas mensagens serão apagados
+- [] Um grupo deverá ter no mínimo um membro
+- [] Se todos os membros de um grupo saírem, o grupo e suas mensagens serão apagadas
+- [] Se os participantes de uma conversa excluírem-a, a conversa e suas mensagens serão apagados
