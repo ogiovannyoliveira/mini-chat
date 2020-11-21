@@ -33,7 +33,6 @@ import { MessageController } from './modules/message/message.controller';
   providers: [
     ChatGateway,
     AlertGateway,
-    MessageService,
   ],
 })
 
