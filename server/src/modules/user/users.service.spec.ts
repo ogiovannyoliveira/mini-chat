@@ -3,9 +3,13 @@ import { getRepositoryToken } from "@nestjs/typeorm";
 import TestUtil from "../../shared/functions/test/testUtils";
 import { User } from "../../shared/entities";
 import { UserService } from "./user.service";
+import { UserController } from "./user.controller";
+import { BadRequestException } from "@nestjs/common";
+import { isUuid } from "../../shared/functions";
 
 describe('UserService', () => {
   let service: UserService
+  let controller: UserController
 
   const mockRepository = {
     create: jest.fn(),
@@ -13,8 +17,9 @@ describe('UserService', () => {
     findOne: jest.fn()
   }
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
+      controllers: [UserController],
       providers: [
         UserService,
         {
@@ -26,10 +31,29 @@ describe('UserService', () => {
     }).compile()
 
     service = moduleRef.get<UserService>(UserService)
+    controller = moduleRef.get<UserController>(UserController);
   })
+
+  afterEach(() => {
+    jest.resetAllMocks();
+ });
 
   it('should be defined', () => {
     expect(service).toBeDefined()
+  })
+
+  describe('createUsers', () => {
+    it('should be register and return a user', async () => {
+      const testUser = TestUtil.giveMeAValidUser()
+      mockRepository.save.mockReturnValue(testUser)
+      mockRepository.create.mockReturnValue(testUser)
+
+      const createdUser = await service.create(testUser)
+
+      expect(createdUser).toMatchObject(testUser)
+      expect(mockRepository.save).toHaveBeenCalledTimes(1)
+      expect(mockRepository.create).toHaveBeenCalledTimes(1)
+    })
   })
 
   describe('findUsers', () => {
@@ -40,21 +64,71 @@ describe('UserService', () => {
       const user = await service.index('00000000-0000-0000-0000-000000000000')
 
       expect(user).toMatchObject({
-        id: '00000000-0000-0000-0000-000000000000',
-        nickname: "giovanny",
+        id: testUser.id,
+        nickname: testUser.nickname
       })
+      expect(mockRepository.findOne).toHaveBeenCalledTimes(1)
     })
 
     it('should be show one user by nickname or ID', async () => {
       const testUser = TestUtil.giveMeAValidUser()
       mockRepository.findOne.mockReturnValue(testUser)
 
-      const user = await service.indexByNicknameOrID('giovanny')
+      const userByNickname = await service.indexByNicknameOrID('giovanny')
+      const userByID = await service.indexByNicknameOrID('00000000-0000-0000-0000-000000000000')
 
-      expect(user).toMatchObject({
-        id: '00000000-0000-0000-0000-000000000000',
-        nickname: "giovanny",
+      expect(userByNickname).toMatchObject({
+        id: testUser.id,
+        nickname: testUser.nickname
       })
+
+      expect(userByID).toMatchObject({
+        id: testUser.id,
+        nickname: testUser.nickname
+      })
+
+      expect(mockRepository.findOne).toHaveBeenCalledTimes(2)
+    })
+  })
+
+  describe('UserController', () => {
+    it('[controller] should be show one user by nickname or ID', async () => {
+      const testUser = TestUtil.giveMeAValidUser()
+      mockRepository.findOne.mockReturnValue(testUser)
+
+      const params = {
+        nicknameOrID: 'giovanny'
+      }
+
+      const caseNicknameOrID = { where: `
+      CASE
+        WHEN (id::text = 'giovanny') THEN TRUE
+        WHEN (nickname = 'giovanny') THEN TRUE
+        ELSE id = '00000000-0000-0000-0000-000000000000'
+      END
+    `}
+
+      controller.indexUser(params)
+
+      expect(mockRepository.findOne).toHaveBeenCalledWith(caseNicknameOrID)
+      expect(controller.indexUser(params)).resolves.toMatchObject({
+        id: testUser.id,
+        nickname: testUser.nickname
+      })
+    })
+  })
+
+  describe('Exception users', () => {
+    it('[controller] should not be show one user by nickname or ID', async () => {
+      mockRepository.findOne.mockReturnValue(null)
+
+      const params = {
+        nicknameOrID: 'cabinha'
+      }
+
+      expect(
+        controller.indexUser(params)
+      ).rejects.toBeInstanceOf(BadRequestException)
     })
   })
 })

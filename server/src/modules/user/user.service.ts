@@ -24,15 +24,10 @@ export class UserService {
   // }
 
   async indexByNicknameOrID(nicknameOrID: string): Promise<User> {
-    let nickname = nicknameOrID
-    let uuid = nicknameOrID
-
-    if (!isUuid(nicknameOrID)) uuid = '00000000-0000-0000-0000-000000000000'
-
     const caseNicknameOrID = `
       CASE
-        WHEN (id = '${uuid}') THEN TRUE
-        WHEN (nickname = '${nickname}') THEN TRUE
+        WHEN (id::text = '${nicknameOrID}') THEN TRUE
+        WHEN (nickname = '${nicknameOrID}') THEN TRUE
         ELSE id = '00000000-0000-0000-0000-000000000000'
       END
     `
