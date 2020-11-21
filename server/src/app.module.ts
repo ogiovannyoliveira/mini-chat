@@ -5,6 +5,7 @@ import { ChatGateway } from './modules/chat/chat.gateway';
 import { AlertGateway } from './modules/alert/alert.gateway';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { MessageModule } from './modules/message/message.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AuthModule } from './modules/auth/auth.module';
     }),
     AuthModule,
     UserModule,
+    MessageModule,
   ],
   controllers: [
     AlertController,
