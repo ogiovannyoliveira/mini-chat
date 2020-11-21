@@ -6,6 +6,8 @@ import { AlertGateway } from './modules/alert/alert.gateway';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MessageModule } from './modules/message/message.module';
+import { MessageService } from './modules/message/message.service';
+import { MessageController } from './modules/message/message.controller';
 
 @Module({
   imports: [
@@ -26,10 +28,12 @@ import { MessageModule } from './modules/message/message.module';
   ],
   controllers: [
     AlertController,
+    MessageController,
   ],
   providers: [
     ChatGateway,
     AlertGateway,
+    MessageService,
   ],
 })
 

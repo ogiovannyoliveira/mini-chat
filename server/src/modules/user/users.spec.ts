@@ -5,7 +5,6 @@ import { User } from "../../shared/entities";
 import { UserService } from "./user.service";
 import { UserController } from "./user.controller";
 import { BadRequestException } from "@nestjs/common";
-import { isUuid } from "../../shared/functions";
 
 describe('UserService', () => {
   let service: UserService
@@ -40,6 +39,7 @@ describe('UserService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined()
+    expect(controller).toBeDefined()
   })
 
   describe('createUsers', () => {
