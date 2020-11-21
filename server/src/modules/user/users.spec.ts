@@ -6,7 +6,7 @@ import { UserService } from "./user.service";
 import { UserController } from "./user.controller";
 import { BadRequestException } from "@nestjs/common";
 
-describe('UserService', () => {
+describe('UserModule', () => {
   let service: UserService
   let controller: UserController
 

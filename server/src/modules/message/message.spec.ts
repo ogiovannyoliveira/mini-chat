@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MessageController } from './message.controller';
 import { MessageService } from './message.service';
 
-describe('MessageService', () => {
+describe('MessageModule', () => {
   let service: MessageService
   let controller: MessageController
 

@@ -14,7 +14,7 @@ export class Message {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'uuid', name: 'sender_id' })
   sender_id: string
 
   @Column()
@@ -34,9 +34,4 @@ export class Message {
 
   @UpdateDateColumn({ nullable: true })
   updated_at: Date
-
-  // referencia na tabela de usuário
-  @OneToOne(() => User)
-  @JoinColumn({ referencedColumnName: 'id' })
-  sender: User
 }
