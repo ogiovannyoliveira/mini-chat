@@ -34,7 +34,7 @@ describe('UserModule', () => {
   })
 
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.resetAllMocks()
  });
 
   it('should be defined', () => {

@@ -8,6 +8,7 @@ describe('MessageModule', () => {
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
+      controllers: [MessageController],
       providers: [MessageService],
     }).compile()
 
@@ -18,5 +19,5 @@ describe('MessageModule', () => {
   it('should be defined', () => {
     expect(service).toBeDefined()
     expect(controller).toBeDefined()
-  });
-});
+  })
+})
