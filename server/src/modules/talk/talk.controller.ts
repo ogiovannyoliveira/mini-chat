@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, InternalServerErrorException, Post, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, InternalServerErrorException, Param, Post, UseGuards } from '@nestjs/common';
 import { CurrentUser } from 'src/shared/decorators';
 import { CreateTalkDto } from 'src/shared/dtos';
 import { User } from 'src/shared/entities';
@@ -32,5 +32,11 @@ export class TalkController {
     }
 
     return createdTalk
+  }
+
+  @Get(':id')
+  @UseGuards(DefaultAuthGuard)
+  async indexTalk(@Param() { id }: { id: string }) {
+    return await this.talkService.index(id)
   }
 }

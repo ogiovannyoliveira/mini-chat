@@ -14,6 +14,10 @@ export class TalkService {
     return await this.repo.save(this.repo.create(talk))
   }
 
+  async index(id: string): Promise<Talk> {
+    return await this.repo.findOne(id)
+  }
+
   async indexByUsers(talk: CreateTalkDto): Promise<Talk> {
     return await this.repo.findOne({
       where: [
