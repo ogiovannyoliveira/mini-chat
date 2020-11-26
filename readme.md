@@ -17,8 +17,8 @@
 <br>
 
 #### Requisitos funcionais:
-- [] O usuário deverá fazer sua conta informando um nickname e uma senha
-- [] O usuário deverá realizar o login na sua conta informando os mesmos dados
+- [x] O usuário deverá fazer sua conta informando um nickname e uma senha
+- [x] O usuário deverá realizar o login na sua conta informando os mesmos dados
 - [] O usuário **logado** poderá pesquisar quaisquer outros usuários pelo nickname
 - [] O usuário **logado** poderá visualizar os grupos e conversas em que é participante
 - [] O usuário **logado** poderá mandar mensagens para qualquer outro, a partir do nickname
