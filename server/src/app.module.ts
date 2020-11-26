@@ -7,6 +7,7 @@ import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MessageModule } from './modules/message/message.module';
 import { MessageController } from './modules/message/message.controller';
+import { TalkModule } from './modules/talk/talk.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MessageController } from './modules/message/message.controller';
     AuthModule,
     UserModule,
     MessageModule,
+    TalkModule,
   ],
   controllers: [
     AlertController,

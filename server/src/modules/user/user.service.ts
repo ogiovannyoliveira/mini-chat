@@ -19,10 +19,6 @@ export class UserService {
     return await this.repo.findOne(id)
   }
 
-  // async indexByNickname(nickname: string): Promise<User> {
-  //   return await this.repo.findOne({ where: { nickname } })
-  // }
-
   async indexByNicknameOrID(nicknameOrID: string): Promise<User> {
     const caseNicknameOrID = `
       CASE

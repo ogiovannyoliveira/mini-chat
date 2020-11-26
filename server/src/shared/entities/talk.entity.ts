@@ -7,24 +7,21 @@ import {
 } from "typeorm"
 
 @Entity()
-export class Message {
+export class Talk {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column({ type: 'uuid', name: 'sender_id' })
-  sender_id: string
+  @Column({ type: 'uuid', name: 'user_primary_id' })
+  user_primary_id: string
 
-  @Column()
-  body: string
-
-  @Column({ default: false })
-  hidden_to_me: boolean
+  @Column({ type: 'uuid', name: 'user_secondary_id' })
+  user_secondary_id: string
 
   @Column({ default: false })
-  hidden_to_all: boolean
+  hidden_to_primary: boolean
 
-  @Column({ nullable: true, type: 'timestamp with time zone' })
-  hidden_at: Date
+  @Column({ default: false })
+  hidden_to_secondary: boolean
 
   @CreateDateColumn()
   created_at: Date
