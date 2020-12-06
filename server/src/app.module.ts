@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { MessageModule } from './modules/message/message.module';
 import { MessageController } from './modules/message/message.controller';
 import { TalkModule } from './modules/talk/talk.module';
+import { GroupModule } from './modules/group/group.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { TalkModule } from './modules/talk/talk.module';
     UserModule,
     MessageModule,
     TalkModule,
+    GroupModule,
   ],
   controllers: [
     AlertController,
