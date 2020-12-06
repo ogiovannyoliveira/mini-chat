@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateMessageDto, CreateMessageToTalkDto } from '../../shared/dtos';
+import { CreateMessageDto, CreateMessageToGroupDto, CreateMessageToTalkDto } from '../../shared/dtos';
 import { Message } from '../../shared/entities';
 import { Repository } from 'typeorm';
 
@@ -24,5 +24,16 @@ export class MessageService {
 
 
     return tmCreated.raw
+  }
+
+  async createMessageToGroup(gm: CreateMessageToGroupDto): Promise<any> {
+    const gmCreated = await this.repo.createQueryBuilder()
+      .insert()
+      .into('group_messages')
+      .values(gm)
+      .returning('*')
+      .execute()
+
+    return gmCreated.raw
   }
 }

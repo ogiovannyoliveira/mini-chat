@@ -1,8 +1,9 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
 import { CurrentUser } from '../../shared/decorators';
-import { CreateMessageDto } from '../../shared/dtos';
+import { CreateMessageDto, CreateMessageToGroupDto } from '../../shared/dtos';
 import { Message, User } from '../../shared/entities';
 import { DefaultAuthGuard } from '../../shared/guards';
+import { GroupService } from '../group/group.service';
 import { TalkService } from '../talk/talk.service';
 import { MessageService } from './message.service';
 
@@ -10,7 +11,8 @@ import { MessageService } from './message.service';
 export class MessageController {
   constructor(
     private messageService: MessageService,
-    private talkService: TalkService
+    private talkService: TalkService,
+    private groupService: GroupService,
   ) {}
 
   @Post()
@@ -48,6 +50,31 @@ export class MessageController {
     await this.messageService.createMessageToTalk({
       message_id: createdMessage.id,
       talk_id: hasTalkBetween.id
+    })
+
+    return createdMessage
+  }
+
+  @Post('group/:id')
+  @UseGuards(DefaultAuthGuard)
+  async createMessageToGroup(
+    @Param('id') id: string,
+    @Body() message: CreateMessageDto,
+    @CurrentUser() { id: user_id }: User
+  ): Promise<Message> {
+    message.sender_id = user_id
+
+    const groupExists = await this.groupService.index(id)
+
+    if (!groupExists) {
+      throw new BadRequestException('Group not exists!')
+    }
+
+    const createdMessage = await this.messageService.create(message)
+
+    await this.messageService.createMessageToGroup({
+      message_id: createdMessage.id,
+      group_id: groupExists.id
     })
 
     return createdMessage
