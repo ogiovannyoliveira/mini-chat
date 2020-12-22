@@ -16,7 +16,7 @@ import { GroupModule } from './modules/group/group.module';
       type: "postgres",
       port: Number(process.env.DB_PORT || 5432),
       host: process.env.DB_HOST || 'localhost',
-      username: process.env.DB_USER || 'developer',
+      username: process.env.DB_USER || 'giovanny',
       password: process.env.DB_PASS || 'dv1010aa',
       database: process.env.DB_NAME || 'minichat',
       entities: ['dist/**/*.entity{.ts,.js}'],
