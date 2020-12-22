@@ -28,6 +28,6 @@
 
 
 #### Requisitos não funcionais:
-- [ ] Um grupo deverá ter no mínimo um membro
-- [ ] Se todos os membros de um grupo saírem, o grupo e suas mensagens serão apagadas
+- [x] Um grupo deverá ter no mínimo um membro
+- [x] Se todos os membros de um grupo saírem, o grupo e suas mensagens serão apagadas
 - [ ] Se os participantes de uma conversa excluírem-a, a conversa e suas mensagens serão apagados
