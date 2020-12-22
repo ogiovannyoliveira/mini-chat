@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, InternalServerErrorException, Param, Post, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, InternalServerErrorException, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CurrentUser } from 'src/shared/decorators';
 import { CreateTalkDto } from 'src/shared/dtos';
 import { User } from 'src/shared/entities';
@@ -32,6 +32,39 @@ export class TalkController {
     }
 
     return createdTalk
+  }
+
+  @Put(':id/hidden')
+  @UseGuards(DefaultAuthGuard)
+  async deleteTalk(
+    @Param('id') id: string,
+    @CurrentUser() currentUser: User
+  ) {
+    const talk = await this.talkService.index(id)
+
+    if (!talk) {
+      throw new BadRequestException('Talk not exists!')
+    }
+
+    const isPrimary = talk.user_primary_id === currentUser.id // else, false
+
+    const hiddedTalk = await this.talkService.hidden(id, isPrimary)
+
+    if (isPrimary) {
+      talk.hidden_to_primary = true
+    } else {
+      talk.hidden_to_secondary = true
+    }
+
+    if (talk.hidden_to_primary && talk.hidden_to_secondary) {
+      await this.talkService.delete(id)
+    }
+
+    if (!hiddedTalk) {
+      throw new InternalServerErrorException('Talk not deleted!')
+    }
+
+    return hiddedTalk
   }
 
   @Get(':id')
