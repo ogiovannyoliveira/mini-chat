@@ -1,0 +1,142 @@
+div.chat-window {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+div.chat-window div.header {
+  height: 60px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.chat-window div.header div.header-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+div.chat-window div.header div.header-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+div.chat-window div.header div.header-info span {
+  font-size: 17px;
+  color: #000;
+}
+
+div.chat-window div.header div.header-actions {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+div.chat-window div.header div.header-actions ul {
+  display: flex;
+  list-style: none;
+}
+
+div.chat-window div.header div.header-actions ul li {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+div.chat-window div.content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #E5DDD5;
+  background-size: cover;
+  background-position: top;
+  background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+  padding: 15px 25px;
+}
+
+div.chat-window div.content::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+div.chat-window div.content::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2)
+}
+
+div.chat-window div.emoji-area {
+  height: 250px;
+  overflow-y: hidden;
+  transition: all ease 0.3s;
+}
+
+div.chat-window div.emoji-area aside.emoji-picker-react {
+  width: auto;
+  background: none;
+}
+
+div.chat-window div.emoji-area aside.emoji-picker-react ul.emoji-group:before {
+  background: none;
+}
+
+div.chat-window div.footer {
+  height: 62px;
+  display: flex;
+  align-items: center;
+}
+
+div.chat-window div.footer div.list-emoji {
+  display: flex;
+  margin: 0 15px;
+}
+
+div.chat-window div.footer div.list-emoji div.emoji {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all ease 0.3s;
+} 
+
+div.chat-window div.footer div.input {
+  flex: 1;
+}
+
+div.chat-window div.footer div.input input {
+  width: 100%;
+  height: 40px;
+  border: 0;
+  outline: 0;
+  background-color: #FFF;
+  border-radius: 20px;
+  font-size: 15px;
+  color: #4A4A4A;
+  padding-left: 15px;
+}
+
+div.chat-window div.footer div.action {
+  display: flex;
+  margin: 0 15px;
+}
+
+div.chat-window div.footer div.action div.button{
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+}
